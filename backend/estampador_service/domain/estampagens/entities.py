@@ -2,8 +2,8 @@
 # Entidade placas, clientes, preços
 from datetime import datetime
 from .exceptions import RegisterDateCannotAfterConclusaoDate, PlacasCannotBeForgotten
-from domain.estoque.entities import Placas
-from domain.fiscal.entities import Fiscal
+from estampador_service.domain.estoque.entities import Placas
+from estampador_service.domain.fiscal.entities import Fiscal
 
 class Estampagens(object): 
     iniciado: datetime 

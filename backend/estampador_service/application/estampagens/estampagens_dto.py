@@ -7,6 +7,7 @@ class EstampagensDto(object):
     iniciado: datetime 
     concluido: datetime
     tipo: Placas
+    status: str
 
     def __init__(self, iniciado: datetime, concluido: datetime, tipo: EstoqueDto):
         self.iniciado = iniciado
@@ -21,7 +22,7 @@ class EstampagensDto(object):
         estampagens_dto = EstampagensDto(
             iniciado=estampagens.iniciado, 
             concluido=estampagens.concluido, 
-            tipo=estoque_dto
+            tipo=estoque_dto,
         )
         estampagens_dto.status = estampagens.status.name
         estampagens_dto.id = estampagens.id

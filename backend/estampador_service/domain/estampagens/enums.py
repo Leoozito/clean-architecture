@@ -15,8 +15,8 @@ class ErrorCodes(Enum):
 class SuccessCodes(Enum):
     SUCCESS = 'Success'
 
-class BookingStatuses(Enum):
-    EM_ESTAMPAGEM = 0
-    INICIADO = 1 
+class EstampagensStatuses(Enum):
+    INICIADO = 0
+    EM_ESTAMPAGEM = 1 
     CONCLUIDO = 2
     CANCELADO = 3

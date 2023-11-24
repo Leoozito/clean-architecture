@@ -3,6 +3,7 @@ from datetime import datetime
 from estampador_service.application.estampagens.estampagens_manager import EstampagensManager
 from estampador_service.application.estampagens.estampagens_dto import EstampagensDto
 from estampador_service.application.estoque.estoque_dto import EstoqueDto
+from .repositories import EstampagensRepository
 
 def home(request):
     estoque_dto = EstoqueDto()
@@ -17,8 +18,8 @@ def create_new(request):
     tipo = get_customer_from_request(request)
 
     dto = EstampagensDto(iniciado, concluida, tipo)
-    # repository = BookingRepository()
-    manager = EstampagensManager(iniciado, concluida, tipo)
+    repository = EstampagensRepository()
+    manager = EstampagensManager(repository)
     res = manager.iniciar_registro_estampagem(dto)
 
     if res['code'] != 'SUCCESS':

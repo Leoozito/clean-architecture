@@ -15,3 +15,14 @@ class EstampagensDto(object):
 
     def to_domain(self):
         return Estampagens(self.iniciado, self.concluido, self.tipo)
+    
+    def to_dto(self, estampagens: Estampagens):
+        estoque_dto = self.tipo.to_dto(estampagens.customer)
+        estampagens_dto = EstampagensDto(
+            iniciado=estampagens.iniciado, 
+            concluido=estampagens.concluido, 
+            tipo=estoque_dto
+        )
+        estampagens_dto.status = estampagens.status.name
+        estampagens_dto.id = estampagens.id
+        return estampagens_dto

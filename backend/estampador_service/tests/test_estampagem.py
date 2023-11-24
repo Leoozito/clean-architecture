@@ -8,6 +8,8 @@ from estampador_service.domain.estampagens.entities import Estampagens
 from domain.estampagens.exceptions import RegisterDateCannotAfterConclusaoDate
 from application.estampagens.estampagens_manager import EstampagensManager
 from application.estampagens.estampagens_dto import EstampagensDto
+from application.estoque.estoque_dto import EstoqueDto
+from estampador_service.domain.estoque.entities import Placas
 
 class EstampagensTest(unittest.TestCase):
 
@@ -34,11 +36,38 @@ class EstampagensTest(unittest.TestCase):
     def test_create(self): 
         iniciado = datetime.today()
         concluido = datetime.utcnow()
-        tipo = Placas()
+        tipo = Placas("CARRO", 23)
         estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
         manager = EstampagensManager()
         res = manager.iniciar_registro_estampagem(estampagens_dto)
-        self.assertEqual(res, "save")
+        self.assertEqual(res['code'], "SUCESS")
+
+    def test_register_should_be_number_AE(self): 
+        iniciado = datetime.today()
+        concluido = datetime.utcnow()
+        tipo = Placas("MOTO", 0)
+        estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
+        manager = EstampagensManager()
+        res = manager.iniciar_registro_estampagem(estampagens_dto)
+        self.assertEqual(res['code'], "REGISTERSSHOULDBENUMBERAE")
+
+    def test_invalid_register(self): 
+        iniciado = datetime.today()
+        concluido = datetime.utcnow()
+        tipo = Placas("BLA BLA", 0)
+        estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
+        manager = EstampagensManager()
+        res = manager.iniciar_registro_estampagem(estampagens_dto)
+        self.assertEqual(res['code'], "INVALIDREGISTER")
+    
+    def test_user_not_allowed_to_access_data(self): 
+        iniciado = datetime.today()
+        concluido = datetime.utcnow()
+        tipo = Placas("CARRO", 0)
+        estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
+        manager = EstampagensManager()
+        res = manager.iniciar_registro_estampagem(estampagens_dto)
+        self.assertEqual(res['code'], "USERNOTALLOWEDTOACCESSDATA")
 
 if __name__ == "__main__":
     unittest.main()

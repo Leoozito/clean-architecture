@@ -10,3 +10,24 @@ def home(request):
     dto = EstampagensDto(datetime.today(), datetime.today(), estoque_dto)
     res = EstampagensManager().iniciar_registro_estampagem(dto)
     return render(request, "index.html", {"res": res})
+
+def create_new(request):
+    iniciado = datetime.strptime(request.POST.get('iniciado'),  "%Y-%m-%dT%H:%M")
+    concluida = datetime.strptime(request.POST.get('concluida'),"%Y-%m-%dT%H:%M")
+    tipo = get_customer_from_request(request)
+
+    dto = EstampagensDto(iniciado, concluida, tipo)
+    # repository = BookingRepository()
+    manager = EstampagensManager(iniciado, concluida, tipo)
+    res = manager.iniciar_registro_estampagem(dto)
+
+    if res['code'] != 'SUCCESS':
+        return render(request, 'index.html', {'res': res})
+    else:
+        return render(request, 'confirmation.html')
+    
+def get_customer_from_request(request):
+    tipoPlaca = request.POST.get('tipoPlaca')
+    quantidade = int(request.POST.get('quantidade'))
+    estoque_dto = EstampagensDto(tipoPlaca, quantidade)
+    return estoque_dto

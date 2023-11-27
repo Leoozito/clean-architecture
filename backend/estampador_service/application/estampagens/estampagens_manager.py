@@ -3,12 +3,19 @@ from estampador_service.application.estampagens.estampagens_dto import Estampage
 from estampador_service.domain.estampagens.enums import *
 from estampador_service.domain.estampagens.exceptions import *
 from .estampagens_storage import *
+from backend.authentication.application.authentication_dto import *
 
 class EstampagensManager(object):
     storage: EstampagensStorage
 
     def __init__(self, storage: EstampagensStorage) -> None:
         self.storage = storage
+
+    def get_estampagens(self, user_dto=AuthDto):
+        if user_dto.is_admin: 
+            return self.storage.get_todas_estampagens()
+        else:
+            return self.storage.get_estampagens_do_usuário()
 
     def iniciar_registro_estampagem(self, estampagensDto: EstampagensDto):
         estampagens_aggregate = estampagensDto.to_domain()

@@ -4,14 +4,14 @@ from estampador_service.application.estampagens.estampagens_manager import Estam
 from estampador_service.application.estampagens.estampagens_dto import EstampagensDto
 from estampador_service.application.estoque.estoque_dto import EstoqueDto
 from .repositories import EstampagensRepository
+from backend.authentication.application.authentication_dto import *
 
 def home(request):
-    # estoque_dto = get_customer_from_request(request)
-    # dto = EstampagensDto(datetime.today(), datetime.today(), estoque_dto)
-    # repository = EstampagensRepository()
-    # manager = EstampagensManager(repository)
-    # res = manager.iniciar_registro_estampagem(dto)
-    return render(request, "index.html")
+    user_dto = AuthDto(request.user, request.user.is_superuser)
+    repository = EstampagensRepository()
+    manager = EstampagensManager(repository)
+    res = manager.iniciar_registro_estampagem(user_dto)
+    return render(request, "index.html", {'estampagens': res})
 
 def create_new(request):
     iniciado = datetime.strptime(request.POST.get('iniciado'),  "%Y-%m-%dT%H:%M")

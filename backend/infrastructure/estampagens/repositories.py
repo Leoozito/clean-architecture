@@ -16,7 +16,6 @@ class EstampagensRepository(EstampagensStorage):
         estampagem = Estampagens()
         estampagem.iniciado = estampagemDto.iniciado
         estampagem.concluido = estampagemDto.concluido
-        estampagem.status = estampagemDto.status
 
         return estampagem
     

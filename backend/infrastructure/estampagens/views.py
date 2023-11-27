@@ -6,11 +6,12 @@ from estampador_service.application.estoque.estoque_dto import EstoqueDto
 from .repositories import EstampagensRepository
 
 def home(request):
-    estoque_dto = EstoqueDto()
-    estoque_dto.name = "Leonardo"
-    dto = EstampagensDto(datetime.today(), datetime.today(), estoque_dto)
-    res = EstampagensManager().iniciar_registro_estampagem(dto)
-    return render(request, "index.html", {"res": res})
+    # estoque_dto = get_customer_from_request(request)
+    # dto = EstampagensDto(datetime.today(), datetime.today(), estoque_dto)
+    # repository = EstampagensRepository()
+    # manager = EstampagensManager(repository)
+    # res = manager.iniciar_registro_estampagem(dto)
+    return render(request, "index.html")
 
 def create_new(request):
     iniciado = datetime.strptime(request.POST.get('iniciado'),  "%Y-%m-%dT%H:%M")
@@ -29,6 +30,6 @@ def create_new(request):
     
 def get_customer_from_request(request):
     tipoPlaca = request.POST.get('tipoPlaca')
-    quantidade = int(request.POST.get('quantidade'))
-    estoque_dto = EstampagensDto(tipoPlaca, quantidade)
+    quantidade = request.POST.get('quantidade')
+    estoque_dto = EstoqueDto(tipoPlaca, quantidade)
     return estoque_dto

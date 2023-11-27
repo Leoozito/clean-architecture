@@ -7,7 +7,6 @@ class EstampagensDto(object):
     iniciado: datetime 
     concluido: datetime
     tipo: Placas
-    status: str
 
     def __init__(self, iniciado: datetime, concluido: datetime, tipo: EstoqueDto):
         self.iniciado = iniciado

@@ -1,7 +1,7 @@
 # Para acrescentar mais um campo de armazenar dados
 
 > Camada interna da arquitetura
-1. Acrescentar no DTO (adicionando campo status)
+## 1. Acrescentar no DTO (adicionando campo status)
 
 ```py
 
@@ -28,9 +28,9 @@ class EstampagensDto(object):
 
 Esse campo que foi adicionado na camadas interna, adicionar na camada externa também, ou seja, em seguida
 
-2. Adicionar este campo ao models do Django
+# 2. Adicionar este novo campo ao models do Django
 
-3. Editar o repositorio para armazenar o valor status
+## 3. Editar o repositorio para armazenar o valor status
 
 ```py
 

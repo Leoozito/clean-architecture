@@ -22,6 +22,12 @@ class EstampagensDto(object):
         estampagens_dto.id = estampagens.id
         return estampagens_dto
 
+    def __init__(self, iniciado: datetime, concluido: datetime, tipo: EstoqueDto):
+        self.iniciado = iniciado
+        self.concluido = concluido
+        self.tipo = tipo
+        self.status = EstampagensStatuses.CRIADO.name
+
 ```
 
 > Para transformar em DTO e chegar no repositorio, para que eu salve a informação "status"...

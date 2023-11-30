@@ -24,7 +24,6 @@ class Estampagens(object):
         self.status = EstampagensStatuses.INICIADO
 
     def is_valid(self):
-        print('INICIO: ', self.iniciado ,"|", "FINAL: ", self.concluido)
         if self.iniciado > self.concluido:
             raise RegisterDateCannotAfterConclusaoDate("Registro para iniciar não pode ser efetuado depois de concluido!")
         elif not self.tipo:

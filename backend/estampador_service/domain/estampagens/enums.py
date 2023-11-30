@@ -16,7 +16,8 @@ class SuccessCodes(Enum):
     SUCCESS = 'Success'
 
 class EstampagensStatuses(Enum):
-    INICIADO = 0
-    EM_ESTAMPAGEM = 1 
-    CONCLUIDO = 2
-    CANCELADO = 3
+    CRIADO = 0
+    INICIADO = 1
+    EM_ESTAMPAGEM = 2 
+    CONCLUIDO = 3
+    CANCELADO = 4

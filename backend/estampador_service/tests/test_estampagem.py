@@ -10,8 +10,12 @@ from application.estampagens.estampagens_manager import EstampagensManager
 from application.estampagens.estampagens_dto import EstampagensDto
 from application.estoque.estoque_dto import EstoqueDto
 from estampador_service.domain.estoque.entities import Placas
+from tests.test_estampagens_manager import DummyStorage
 
 class EstampagensTest(unittest.TestCase):
+    def __init__(self, methodName: str = "runTest") -> None:
+        self.dummy_storage = DummyStorage()
+        super().__init__(methodName)
 
     def register_date_cannot_be_after_conclusion(self):
         iniciado = datetime.today()
@@ -38,7 +42,7 @@ class EstampagensTest(unittest.TestCase):
         concluido = datetime.utcnow()
         tipo = Placas("CARRO", 23)
         estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
-        manager = EstampagensManager()
+        manager = EstampagensManager(self.dummy_storage)
         res = manager.iniciar_registro_estampagem(estampagens_dto)
         self.assertEqual(res['code'], "SUCESS")
 
@@ -47,7 +51,7 @@ class EstampagensTest(unittest.TestCase):
         concluido = datetime.utcnow()
         tipo = Placas("MOTO", 0)
         estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
-        manager = EstampagensManager()
+        manager = EstampagensManager(self.dummy_storage)
         res = manager.iniciar_registro_estampagem(estampagens_dto)
         self.assertEqual(res['code'], "REGISTERSSHOULDBENUMBERAE")
 
@@ -56,7 +60,7 @@ class EstampagensTest(unittest.TestCase):
         concluido = datetime.utcnow()
         tipo = Placas("BLA BLA", 0)
         estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
-        manager = EstampagensManager()
+        manager = EstampagensManager(self.dummy_storage)
         res = manager.iniciar_registro_estampagem(estampagens_dto)
         self.assertEqual(res['code'], "INVALIDREGISTER")
     
@@ -65,7 +69,7 @@ class EstampagensTest(unittest.TestCase):
         concluido = datetime.utcnow()
         tipo = Placas("CARRO", 0)
         estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
-        manager = EstampagensManager()
+        manager = EstampagensManager(self.dummy_storage)
         res = manager.iniciar_registro_estampagem(estampagens_dto)
         self.assertEqual(res['code'], "USERNOTALLOWEDTOACCESSDATA")
 

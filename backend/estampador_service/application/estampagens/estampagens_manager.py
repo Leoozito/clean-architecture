@@ -3,7 +3,7 @@ from estampador_service.application.estampagens.estampagens_dto import Estampage
 from estampador_service.domain.estampagens.enums import *
 from estampador_service.domain.estampagens.exceptions import *
 from .estampagens_storage import *
-from backend.authentication.application.authentication_dto import *
+from authentication.application.authentication_dto import *
 
 class EstampagensManager(object):
     storage: EstampagensStorage
@@ -22,8 +22,9 @@ class EstampagensManager(object):
 
         try:
             if estampagens_aggregate.is_valid():
-                estampagens_aggregate.create_booking()
+                estampagens_aggregate.create_estampagens()
                 final_dto = estampagensDto.to_dto(estampagens_aggregate)
+                # print("FINAAAL: ",final_dto)
                 self.storage.salvar_estampagens(final_dto)
                 return {'message': SuccessCodes.SUCCESS.value, 'code': SuccessCodes.SUCCESS.name}
         except RegisterDateCannotAfterConclusaoDate as e:
@@ -33,6 +34,6 @@ class EstampagensManager(object):
         except EstampagemUpdateRequiredAE as e:
             return {'message': ErrorCodes.REGISTERSSHOULDBENUMBERAE.value, 'code': ErrorCodes.REGISTERSSHOULDBENUMBERAE.name}
         except EstampagemStatusCannotBeDelete as e:
-            return {'message': ErrorCodes.INVALIDREGISTER.value, 'code': ErrorCodes.INVALIDREGISTER.name}
+            return {'message': ErrorCodes.TIPOPLACAINVALIDO.value, 'code': ErrorCodes.TIPOPLACAINVALIDO.name}
         except Exception as e:
             return {'message': ErrorCodes.UNDEFINED.value, 'code': ErrorCodes.UNDEFINED.name}

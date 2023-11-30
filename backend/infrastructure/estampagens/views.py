@@ -10,7 +10,7 @@ def home(request):
     user_dto = AuthDto(request.user, request.user.is_superuser)
     repository = EstampagensRepository()
     manager = EstampagensManager(repository)
-    res = manager.iniciar_registro_estampagem(user_dto)
+    res = manager.get_estampagens(user_dto)
     return render(request, "index.html", {'estampagens': res})
 
 def create_new(request):

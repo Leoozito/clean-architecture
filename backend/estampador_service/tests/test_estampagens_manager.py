@@ -10,7 +10,7 @@ from estampador_service.domain.estoque.entities import Placas
 from authentication.application.authentication_dto import AuthDto
 
 class DummyStorage(EstampagensStorage):
-    def salvar_estampagem(self, estampagensDto: EstampagensDto):
+    def salvar_estampagens(self, estampagensDto: EstampagensDto):
         return True
     
     def get_todas_estampagens(self):
@@ -29,7 +29,7 @@ class DummyStorage(EstampagensStorage):
         duas_listas = [lista1, lista2]
         return duas_listas
 
-    def get_estampagens_not_cancel(self):
+    def get_estampagens_do_usuário(self):
         iniciado = datetime.today()
         concluido = datetime.today() - timedelta(days=1)
         tipo = Placas("CARRO", 23)
@@ -50,6 +50,7 @@ class EstampagensAggregateManagerTest(unittest.TestCase):
         estampagens_dto = EstampagensDto(iniciado=iniciado, concluido=concluido, tipo=tipo)
         manager = EstampagensManager(self.dummy_storage)
         res = manager.iniciar_registro_estampagem(estampagens_dto)
+        print("RESPOSTA: ", res)
         self.assertEqual(res['code'], "REGISTERAFTERCONCLUSAO")
 
     def test_get_estampagens_user_admin(self):

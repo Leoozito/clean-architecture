@@ -14,8 +14,8 @@
         {{ res }}
 
         <ul>
-          {% for booking in bookings %}
-            <a href="update/{{estampagens.id}}"><li>{{booking.customer.name}} - {{booking.checkin}}</li></a>
+          {% for estampagem in estampagens %}
+            <a href="update/{{estampagem.id}}"><li>{{estampagem.customer.name}} - {{booking.checkin}}</li></a>
           {% endfor %}
         </ul>
 
